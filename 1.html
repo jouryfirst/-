@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/1.css"/>
+	</head>
+	<body>
+		<script>
+			/*
+			 * 需求：根据input中的默认数据，点击按钮，自动归类到下方表单中。
+			 * 分析：1，获取input中的数据，检测数据类型type of 将返回值赋给value
+			 * 2，数据类型为Undefined，null,string,number的可以转数字，boolean和object不可以
+			 * 3，Number后进行比较，取最大值
+			 * 4，循环is NaN,找出数组下标。
+			 */
+			window.onload = function(){
+				var text = document.getElementById('input');
+				var text1 = document.getElementById('num');
+				var text2 = document.getElementById('num2');
+				var text3 = document.getElementById('max');
+				var text4 = document.getElementById('site');
+				var newarr = [];
+				
+				button.onclick = function(){
+					var arr=[-27,'joury', 6-'20%',[],-5900,'800km',function(){alert('张家瑞');},,'xyz'-90,null,'66',document,[],true,'198px'-30,'49.9元',5,function(){alert(3);},Number('abc')];
+					text1.value = '';
+					text2.value = '';
+					text3.value = '';
+					text4.value = '';
+					text1.style.color = '#032cec';
+					text2.style.color = '#032cec';
+					text3.style.color = '#032cec';
+					text4.style.color = '#032cec';
+					for(var n = 0;n<arr.length;n++){
+						if(typeof (arr[n]) == 'number'){
+							if(isNaN(arr[n])==false){
+								text1.value += arr[n] + ', ';
+							}	
+						}
+						if(isNaN(parseFloat(arr[n])) == false){
+							text2.value += arr[n] + ', ';
+						}
+						if(isNaN(arr[n])==false){
+						    newarr.push(Number(arr[n]));
+					    }
+						if(isNaN(arr[n])==true){
+							text4.value += n + ',';
+						}
+						
+					}
+					newarr.sort(function(a,b){return a - b; });
+						
+						text3.value = newarr[0];
+					//console.log(newarr.length);
+				}
+				
+			}
+		</script>
+		<div class="main">
+		<h3>默认数据</h3>
+		<div id="input">[-27, 'joury', 6-'20%', [], -5900, '800km', function(){alert('张家瑞');}, , 'xyz'-90, null, 66, document, [], true, '198px'-30, '49.9元', 5, function(){alert(3);}, Number('abc')]</div>
+		<input type="button" value="查看结果" id="button">
+		<ul>
+			<li>
+				<span>所有数字：</span><input type="text" id="num" value="数组里某个数据本身就是数字" />
+			</li>
+			<li>
+				<span>可以转成数字的值：</span><input type="text" id="num2" value="除了数组里的对象类型与布尔值类型" />
+			</li>
+			<li>
+				<span>转换后的最大数值：</span><input type="text" id="max" value="把所有数据转成数字以后，找出最大值" />
+			</li>
+			<li>
+				<span>数组中NaN的位置：</span><input type="text" id="site" value="每个数据运算后的值为NaN" />
+			</li>
+		</ul>
+		</div>
+	</body>
+</html>
